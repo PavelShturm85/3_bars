@@ -10,17 +10,17 @@ def load_data(enter_file):
 
 
 def get_biggest_bar(input_content):
-    return max(input_content['features'][0:],
+    return max(input_content['features'][:],
                key=lambda bar: bar['properties']['Attributes']['SeatsCount'])
 
 
 def get_smallest_bar(input_content):
-    return min(input_content['features'][0:],
+    return min(input_content['features'][:],
                key=lambda bar: bar['properties']['Attributes']['SeatsCount'])
 
 
 def get_closest_bar(input_content, longitude, latitude):
-    return min(input_content['features'][0:],
+    return min(input_content['features'][:],
                key=lambda point: get_distance(latitude,
                                               longitude,
                                               point['geometry']
