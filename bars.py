@@ -5,26 +5,26 @@ from math import sqrt
 
 def load_data(enter_file):
     with open(enter_file) as json_file:
-        json_content = json.load(json_file)['features'][:]
+        json_content = json.load(json_file)['features']
     return json_content
 
 
 def get_biggest_bar(input_bars):
-    biggest_bar = max(input_bars,
-                      key=lambda bar: bar['properties']
-                                         ['Attributes']
-                                         ['SeatsCount'])
+    biggest_bar = max(input_bars, key=lambda bar: bar['properties']
+                                                     ['Attributes']
+                                                     ['SeatsCount'])
 
-    return biggest_bar['properties']['Attributes']
+    attributes_bar = biggest_bar['properties']['Attributes']
+    return attributes_bar['Name'], attributes_bar['SeatsCount']
 
 
 def get_smallest_bar(input_bars):
-    smallest_bar = min(input_bars,
-                       key=lambda bar: bar['properties']
-                                          ['Attributes']
-                                          ['SeatsCount'])
+    smallest_bar = min(input_bars, key=lambda bar: bar['properties']
+                                                      ['Attributes']
+                                                      ['SeatsCount'])
 
-    return smallest_bar['properties']['Attributes']
+    attributes_bar = smallest_bar['properties']['Attributes']
+    return attributes_bar['Name'], attributes_bar['SeatsCount']
 
 
 def get_closest_bar(input_bars, longitude, latitude):
@@ -34,7 +34,8 @@ def get_closest_bar(input_bars, longitude, latitude):
                                                      point['geometry']
                                                           ['coordinates']))
 
-    return closest_bar['properties']['Attributes']
+    attributes_bar = closest_bar['properties']['Attributes']
+    return attributes_bar['Name'], attributes_bar['Address']
 
 
 def get_distance(latitude, longitude, user_point):
@@ -53,14 +54,11 @@ if __name__ == '__main__':
     bars = load_data(input_file_name)
 
     print('Самый большой бар: {}, количество мест: {}'.format(
-        get_biggest_bar(bars)['Name'],
-        get_biggest_bar(bars)['SeatsCount']))
+        *get_biggest_bar(bars)))
 
-    print('Самый маленький бар: {}, количество мест: {}'.format(
-        get_smallest_bar(bars)['Name'],
-        get_smallest_bar(bars)['SeatsCount']))
+    print('Самый большой бар: {}, количество мест: {}'.format(
+        *get_smallest_bar(bars)))
 
     closest_bar = get_closest_bar(bars, user_longitude, user_latitude)
     print('Ближайший бар называется:  {}, находится по адресу: {}'.format(
-        closest_bar['Name'],
-        closest_bar['Address']))
+        *closest_bar))
