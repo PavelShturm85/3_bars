@@ -32,8 +32,15 @@ def get_closest_bar(input_bars, longitude, latitude):
     return closest_bar
 
 
-def get_distance(latitude, longitude, user_point):
-    return sqrt((latitude - user_point[0])**2 + (longitude - user_point[1])**2)
+def get_distance(latitude, longitude, bars_point):
+    return sqrt((latitude - bars_point[0])**2 + (longitude - bars_point[1])**2)
+
+
+def print_bar(attributes_bar, info):
+    print(info, 'бар: {}, количество мест: {}, адрес: {}'.format(
+        attributes_bar['Name'],
+        attributes_bar['SeatsCount'],
+        attributes_bar['Address']))
 
 
 if __name__ == '__main__':
@@ -56,11 +63,6 @@ if __name__ == '__main__':
     attributes_biggest_bar = get_biggest_bar(
         bars)['properties']['Attributes']
 
-    print('Самый большой бар: {}, количество мест: {}'.format(
-        attributes_biggest_bar['Name'], attributes_biggest_bar['SeatsCount']))
-
-    print('Самый маленький бар: {}, количество мест: {}'.format(
-        attributes_smallest_bar['Name'], attributes_smallest_bar['SeatsCount']))
-
-    print('Ближайший бар называется: {}, находится по адресу: {}'.format(
-        attributes_closest_bar['Name'], attributes_closest_bar['Address']))
+    print_bar(attributes_biggest_bar, 'Крупнейний')
+    print_bar(attributes_smallest_bar, 'Наименьший')
+    print_bar(attributes_closest_bar, 'Ближайший')
