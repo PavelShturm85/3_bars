@@ -57,10 +57,10 @@ if __name__ == '__main__':
         bars)['properties']['Attributes']
 
     print('Самый большой бар: {}, количество мест: {}'.format(
-        attributes_biggest_bar['Name'], attributes_biggest_bar['Address']))
+        attributes_biggest_bar['Name'], attributes_biggest_bar['SeatsCount']))
 
     print('Самый маленький бар: {}, количество мест: {}'.format(
-        attributes_smallest_bar['Name'], attributes_smallest_bar['Address']))
+        attributes_smallest_bar['Name'], attributes_smallest_bar['SeatsCount']))
 
     print('Ближайший бар называется: {}, находится по адресу: {}'.format(
         attributes_closest_bar['Name'], attributes_closest_bar['Address']))
