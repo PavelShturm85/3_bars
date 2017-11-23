@@ -36,8 +36,8 @@ def get_distance(latitude, longitude, bars_point):
     return sqrt((latitude - bars_point[0])**2 + (longitude - bars_point[1])**2)
 
 
-def print_bar(attributes_bar, info):
-    print(info, 'бар: {}, количество мест: {}, адрес: {}'.format(
+def print_bar(attributes_bar, bar_properties):
+    print(bar_properties, 'бар: {}, количество мест: {}, адрес: {}'.format(
         attributes_bar['Name'],
         attributes_bar['SeatsCount'],
         attributes_bar['Address']))
