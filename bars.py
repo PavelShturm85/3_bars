@@ -13,18 +13,14 @@ def get_biggest_bar(input_bars):
     biggest_bar = max(input_bars, key=lambda bar: bar['properties']
                                                      ['Attributes']
                                                      ['SeatsCount'])
-
-    attributes_bar = biggest_bar['properties']['Attributes']
-    return attributes_bar['Name'], attributes_bar['SeatsCount']
+    return biggest_bar
 
 
 def get_smallest_bar(input_bars):
     smallest_bar = min(input_bars, key=lambda bar: bar['properties']
                                                       ['Attributes']
                                                       ['SeatsCount'])
-
-    attributes_bar = smallest_bar['properties']['Attributes']
-    return attributes_bar['Name'], attributes_bar['SeatsCount']
+    return smallest_bar
 
 
 def get_closest_bar(input_bars, longitude, latitude):
@@ -33,9 +29,7 @@ def get_closest_bar(input_bars, longitude, latitude):
                                                      longitude,
                                                      point['geometry']
                                                           ['coordinates']))
-
-    attributes_bar = closest_bar['properties']['Attributes']
-    return attributes_bar['Name'], attributes_bar['Address']
+    return closest_bar
 
 
 def get_distance(latitude, longitude, user_point):
@@ -53,12 +47,20 @@ if __name__ == '__main__':
 
     bars = load_data(input_file_name)
 
-    print('Самый большой бар: {}, количество мест: {}'.format(
-        *get_biggest_bar(bars)))
+    attributes_closest_bar = get_closest_bar(
+        bars, user_longitude, user_latitude)['properties']['Attributes']
+
+    attributes_smallest_bar = get_smallest_bar(
+        bars)['properties']['Attributes']
+
+    attributes_biggest_bar = get_biggest_bar(
+        bars)['properties']['Attributes']
 
     print('Самый большой бар: {}, количество мест: {}'.format(
-        *get_smallest_bar(bars)))
+        attributes_biggest_bar['Name'], attributes_biggest_bar['Address']))
 
-    closest_bar = get_closest_bar(bars, user_longitude, user_latitude)
-    print('Ближайший бар называется:  {}, находится по адресу: {}'.format(
-        *closest_bar))
+    print('Самый маленький бар: {}, количество мест: {}'.format(
+        attributes_smallest_bar['Name'], attributes_smallest_bar['Address']))
+
+    print('Ближайший бар называется: {}, находится по адресу: {}'.format(
+        attributes_closest_bar['Name'], attributes_closest_bar['Address']))
